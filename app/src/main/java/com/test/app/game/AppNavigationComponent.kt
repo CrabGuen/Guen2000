@@ -57,6 +57,9 @@ fun AppNavigationComponent() {
             val name: String = it.arguments?.getString(NAME) ?: ""
             SecondTestScreen(navController, name)
         }
+        composable("tip") {
+            TipTimeScreen(navController)
+        }
         composable(
             route = "showG/{$SCORE}",
             arguments = listOf(
