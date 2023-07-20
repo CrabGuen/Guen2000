@@ -16,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -52,6 +53,12 @@ fun ChooseFieldScreen(navController: NavController) {
             contentAlignment = Alignment.Center
         ) {
             Row {
+                Image(
+                    painter = painterResource(R.drawable.image_maths),
+                    contentDescription = null,
+                    modifier = Modifier.size(width = 68.dp, height = 56.dp),
+                    contentScale = ContentScale.Crop
+                )
                 DisplayIcon()
                 Text(
                     text = "MathIQ",
@@ -74,6 +81,12 @@ fun ChooseFieldScreen(navController: NavController) {
             contentAlignment = Alignment.Center
         ) {
             Row {
+                Image(
+                    painter = painterResource(R.drawable.image_history),
+                    contentDescription = null,
+                    modifier = Modifier.size(width = 68.dp, height = 56.dp),
+                    contentScale = ContentScale.Crop
+                )
                 DisplayIcon()
                 Text(
                     text = "History",
@@ -96,6 +109,12 @@ fun ChooseFieldScreen(navController: NavController) {
             contentAlignment = Alignment.Center
         ) {
             Row {
+                Image(
+                    painter = painterResource(R.drawable.image_geography),
+                    contentDescription = null,
+                    modifier = Modifier.size(width = 68.dp, height = 56.dp),
+                    contentScale = ContentScale.Crop
+                )
                 DisplayIcon()
                 Text(
                     text = "Geography",
@@ -118,6 +137,12 @@ fun ChooseFieldScreen(navController: NavController) {
             contentAlignment = Alignment.Center
         ) {
             Row {
+                Image(
+                    painter = painterResource(R.drawable.image_literature),
+                    contentDescription = null,
+                    modifier = Modifier.size(width = 68.dp, height = 56.dp),
+                    contentScale = ContentScale.Crop
+                )
                 DisplayIcon()
                 Text(
                     text = "Literature",
@@ -140,6 +165,12 @@ fun ChooseFieldScreen(navController: NavController) {
             contentAlignment = Alignment.Center
         ) {
             Row {
+                Image(
+                    painter = painterResource(R.drawable.image_physics),
+                    contentDescription = null,
+                    modifier = Modifier.size(width = 68.dp, height = 56.dp),
+                    contentScale = ContentScale.Crop
+                )
                 DisplayIcon()
                 Text(
                     text = "Physics",
@@ -162,6 +193,12 @@ fun ChooseFieldScreen(navController: NavController) {
             contentAlignment = Alignment.Center
         ) {
             Row {
+                Image(
+                    painter = painterResource(R.drawable.image_chemistry),
+                    contentDescription = null,
+                    modifier = Modifier.size(width = 68.dp, height = 56.dp),
+                    contentScale = ContentScale.Crop
+                )
                 DisplayIcon()
                 Text(
                     text = "Chemistry",
@@ -184,6 +221,12 @@ fun ChooseFieldScreen(navController: NavController) {
             contentAlignment = Alignment.Center
         ) {
             Row {
+                Image(
+                    painter = painterResource(R.drawable.image_american),
+                    contentDescription = null,
+                    modifier = Modifier.size(width = 68.dp, height = 56.dp),
+                    contentScale = ContentScale.Crop
+                )
                 DisplayIcon()
                 Text(
                     text = "American",

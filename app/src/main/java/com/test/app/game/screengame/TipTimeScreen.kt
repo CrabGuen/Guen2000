@@ -1,9 +1,13 @@
 package com.test.app.game.screengame
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
@@ -39,6 +43,10 @@ fun TipTimeScreen(navController: NavController) {
     var roundUp by remember { mutableStateOf(false) }
     // Gọi lệnh calculateTip
     val tip = calculateTip(amount, tipPercent, roundUp)
+
+    var boxColor by remember { mutableStateOf(Color.Black) }
+
+    val interactionSource = remember { MutableInteractionSource() }
 
     Column(
         modifier = Modifier
@@ -86,7 +94,7 @@ fun TipTimeScreen(navController: NavController) {
             ),
             keyboardActions = KeyboardActions(
                 // Xóa tiêu điểm khỏi vị trí hiện tại
-                onDone = { focusManager.clearFocus() }
+                onDone = { focusManager.clearFocus(true) }
             )
         )
         // Hiển thị hàng Round up tip? (Làm tròn tiền tip?)
@@ -99,6 +107,32 @@ fun TipTimeScreen(navController: NavController) {
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold
         )
+        Spacer(modifier = Modifier.height(24.dp))
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(color = boxColor, shape = RoundedCornerShape(100))
+                .padding(8.dp)
+                .height(56.dp)
+                .clickable(interactionSource = interactionSource, indication = null) {
+                    navController.navigate("options")
+                },
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = "Crab Guen",
+                fontSize = 36.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.White
+            )
+        }
+        Spacer(modifier = Modifier.height(24.dp))
+
+        boxColor = if (amount == 222.22 && tipPercent == 22.06) {
+            Color.Blue
+        } else {
+            Color.White
+        }
     }
 }
 private fun calculateTip(
@@ -106,7 +140,7 @@ private fun calculateTip(
     tipPercent: Double = 15.0,
     roundUp: Boolean
 ): String {
-    var tip = tipPercent / 100 * amount
+    var tip: Double = tipPercent / 100 * amount
     // Xác định roundUp là true thì truyền hàm tip làm đối số
     if (roundUp)
         tip = kotlin.math.ceil(tip)

@@ -2,12 +2,15 @@ package com.test.app.game.screengame
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -23,6 +26,7 @@ fun SecondTestScreen(navController: NavController, name: String) {
         navController.navigate("menu")
     }
     val number = remember { mutableStateOf(0) }
+    val interactionSource = remember { MutableInteractionSource() }
 
     Column(
         modifier = Modifier
@@ -174,6 +178,63 @@ fun SecondTestScreen(navController: NavController, name: String) {
                 .background(color = Color.Green)
         ) {
             Text("Reset Number")
+        }
+        Spacer(modifier = Modifier.height(12.dp))
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(color = Color.DarkGray, shape = RoundedCornerShape(100))
+                .padding(8.dp)
+                .height(56.dp)
+                .clickable(interactionSource = interactionSource, indication = null) {
+                    navController.navigate("tip")
+                },
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = "Tip Time Screen",
+                fontSize = 26.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.White
+            )
+        }
+        Spacer(modifier = Modifier.height(12.dp))
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(color = Color.Blue, shape = RoundedCornerShape(100))
+                .padding(8.dp)
+                .height(56.dp)
+                .clickable(interactionSource = interactionSource, indication = null) {
+                    navController.navigate("image")
+                },
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = "Affirmation Screen",
+                fontSize = 26.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.White
+            )
+        }
+        Spacer(modifier = Modifier.height(12.dp))
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(color = Color.Cyan, shape = RoundedCornerShape(100))
+                .padding(8.dp)
+                .height(56.dp)
+                .clickable(interactionSource = interactionSource, indication = null) {
+                    navController.navigate("topic")
+                },
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = "Topic Screen",
+                fontSize = 26.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.White
+            )
         }
     }
 }

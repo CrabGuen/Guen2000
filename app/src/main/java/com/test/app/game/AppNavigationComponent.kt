@@ -60,6 +60,12 @@ fun AppNavigationComponent() {
         composable("tip") {
             TipTimeScreen(navController)
         }
+        composable("image") {
+            AffirmationScreen(navController)
+        }
+        composable("topic") {
+            TopicScreen(navController)
+        }
         composable(
             route = "showG/{$SCORE}",
             arguments = listOf(

@@ -20,7 +20,6 @@ import androidx.compose.ui.unit.sp
 import com.test.app.game.R
 import kotlinx.coroutines.delay
 
-
 @Composable
 fun SplashScreen(navController: NavController) {
 

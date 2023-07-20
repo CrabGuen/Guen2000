@@ -30,15 +30,15 @@ fun DelayScreen(navController: NavController) {
             0
         )
     )
-    LaunchedEffect(Unit) {
-        questions.forEach { question ->
-            delay(3000)
-//            QuestionItem(question)
-        }
-    }
+//    LaunchedEffect(Unit) {
+//        questions.forEach { question ->
+//            delay(3000)
+//            Question(question)
+//        }
+//    }
 }
 @Composable
-fun QuestionItem(item: Question) {
+fun Question(item: Question) {
     Column {
         Text(text = item.question)
         item.answers.forEach { answer ->

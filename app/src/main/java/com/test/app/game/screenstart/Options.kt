@@ -6,6 +6,7 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -23,15 +24,22 @@ fun OptionsScreen(navController: NavController) {
     BackHandler {
         navController.navigate("menu")
     }
+    var isChecked by remember { mutableStateOf(false) }
+
+    var backgroundColor by remember { mutableStateOf(Color.White)}
+
+    var checkColor by remember { mutableStateOf(false)}
+
+    var textColor by remember { mutableStateOf(Color.Blue)}
 
     Surface(
         modifier = Modifier.fillMaxSize(),
-        color = Color.LightGray
+        color = backgroundColor
     ) {
         Column {
             Text(
                 text = "Options",
-                color = Color.Blue,
+                color = textColor,
                 style = MaterialTheme.typography.h4,
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
@@ -39,35 +47,52 @@ fun OptionsScreen(navController: NavController) {
                 fontWeight = FontWeight.Bold,
             )
             CheckboxSetting(
-                label = "Enable notifications",
-                isChecked = false,
-                onCheckedChange = {},
+                label = "Text Mode",
+                isChecked = checkColor,
+                onCheckedChange = { checkColor = it },
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
             )
+            // Điều kiện cho Text Mode
+            textColor = if (checkColor) {
+                Color.Red
+            } else {
+                Color.Blue
+            }
             CheckboxSetting(
-                label = "Dark mode",
-                isChecked = false,
-                onCheckedChange = {},
+                label = "Dark Mode",
+                isChecked = isChecked,
+                onCheckedChange = { isChecked = it },
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
             )
-            Row(
-                modifier = Modifier
-                    .padding(all = 8.dp),
-                verticalAlignment = Alignment.Bottom,
-                horizontalArrangement = Arrangement.Center
+            // Điều kiện cho Dark Mode
+            backgroundColor = if (isChecked) {
+                Color.LightGray
+            } else {
+                Color.White
+            }
+            Column(
+                verticalArrangement = Arrangement.Bottom,
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Image(
-                    painter = painterResource(id = R.drawable.ic_android_black_24dp),
-                    contentDescription = "Row Image",
+                Row(
                     modifier = Modifier
-                        .size(40.dp)
-                        .clip(CircleShape)
-                )
-                Spacer(modifier = Modifier.width(8.dp))
-                Column {
-                    Text(text = "Jetpack")
-                    Spacer(modifier = Modifier.height(4.dp))
-                    Text(text = "Compose")
+                        .padding(all = 8.dp),
+                    verticalAlignment = Alignment.Bottom,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_android_black_24dp),
+                        contentDescription = "Row Image",
+                        modifier = Modifier
+                            .size(40.dp)
+                            .clip(CircleShape)
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Column {
+                        Text(text = "Jetpack")
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Text(text = "Compose")
+                    }
                 }
             }
         }

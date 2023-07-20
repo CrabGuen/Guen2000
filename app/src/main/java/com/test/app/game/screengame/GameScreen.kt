@@ -55,6 +55,8 @@ fun GameScreen(navController: NavHostController, category: String) {
 
     val isAnswered = remember { mutableStateOf(false) }
 
+    var boxColor by remember { mutableStateOf(Color.Blue) }
+
     fun checkAnswer(answerIndex: Int) {
         index.value++
 
@@ -68,7 +70,8 @@ fun GameScreen(navController: NavHostController, category: String) {
 
     LaunchedEffect(isAnswered.value) {
         if (isAnswered.value) {
-            delay(1000)
+            boxColor = Color.Black
+            delay(1600)
             checkAnswer(ansIndex.value)
             isAnswered.value = false
         }
@@ -112,7 +115,7 @@ fun GameScreen(navController: NavHostController, category: String) {
                     .padding(8.dp)
                     .fillMaxWidth()
                     .height(56.dp)
-                    .background(color = Color.Blue, shape = RoundedCornerShape(100)),
+                    .background(color = boxColor, shape = RoundedCornerShape(100)),
                 contentAlignment = Alignment.Center
             ) {
                 Text(
@@ -233,6 +236,12 @@ fun GameScreen(navController: NavHostController, category: String) {
                 fontSize = 22.sp,
                 color = Color.White
             )
+        }
+        boxColor = when (index.value) {
+            5 -> Color.Red
+            8 -> Color.Green
+            11 -> Color.White
+            else -> Color.Blue
         }
         Column(verticalArrangement = Arrangement.Bottom) {
             Row(
