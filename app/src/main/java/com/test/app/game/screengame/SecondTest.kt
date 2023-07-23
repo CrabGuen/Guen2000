@@ -23,10 +23,14 @@ import androidx.compose.ui.unit.sp
 fun SecondTestScreen(navController: NavController, name: String) {
 
     BackHandler {
-        navController.navigate("menu")
+        navController.popBackStack()
     }
     val number = remember { mutableStateOf(0) }
     val interactionSource = remember { MutableInteractionSource() }
+
+    if (name == "Nguyen" && number.value < 2206) {
+        number.value += 2206
+    }
 
     Column(
         modifier = Modifier
@@ -56,7 +60,7 @@ fun SecondTestScreen(navController: NavController, name: String) {
                     .width(42.dp)
                     .background(color = Color.Green)
             ) {
-                Text("1")
+                Text("1", color = Color.Blue)
             }
             Spacer(modifier = Modifier.width(6.dp))
             Button(
@@ -66,7 +70,7 @@ fun SecondTestScreen(navController: NavController, name: String) {
                     .width(42.dp)
                     .background(color = Color.Green)
             ) {
-                Text("2")
+                Text("2", color = Color.Blue)
             }
             Spacer(modifier = Modifier.width(6.dp))
             Button(
@@ -76,7 +80,7 @@ fun SecondTestScreen(navController: NavController, name: String) {
                     .width(42.dp)
                     .background(color = Color.Green)
             ) {
-                Text("3")
+                Text("3", color = Color.Blue)
             }
         }
         Spacer(modifier = Modifier.height(6.dp))
@@ -93,7 +97,7 @@ fun SecondTestScreen(navController: NavController, name: String) {
                     .width(42.dp)
                     .background(color = Color.Green)
             ) {
-                Text("4")
+                Text("4", color = Color.Blue)
             }
             Spacer(modifier = Modifier.width(6.dp))
             Button(
@@ -103,7 +107,7 @@ fun SecondTestScreen(navController: NavController, name: String) {
                     .width(42.dp)
                     .background(color = Color.Green)
             ) {
-                Text("5")
+                Text("5", color = Color.Blue)
             }
             Spacer(modifier = Modifier.width(6.dp))
             Button(
@@ -113,7 +117,7 @@ fun SecondTestScreen(navController: NavController, name: String) {
                     .width(42.dp)
                     .background(color = Color.Green)
             ) {
-                Text("6")
+                Text("6", color = Color.Blue)
             }
         }
         Spacer(modifier = Modifier.height(6.dp))
@@ -130,7 +134,7 @@ fun SecondTestScreen(navController: NavController, name: String) {
                     .width(42.dp)
                     .background(color = Color.Green)
             ) {
-                Text("7")
+                Text("7", color = Color.Blue)
             }
             Spacer(modifier = Modifier.width(6.dp))
             Button(
@@ -140,7 +144,7 @@ fun SecondTestScreen(navController: NavController, name: String) {
                     .width(42.dp)
                     .background(color = Color.Green)
             ) {
-                Text("8")
+                Text("8", color = Color.Blue)
             }
             Spacer(modifier = Modifier.width(6.dp))
             Button(
@@ -150,7 +154,7 @@ fun SecondTestScreen(navController: NavController, name: String) {
                     .width(42.dp)
                     .background(color = Color.Green)
             ) {
-                Text("9")
+                Text("9", color = Color.Blue)
             }
         }
         Spacer(modifier = Modifier.height(6.dp))
@@ -161,7 +165,7 @@ fun SecondTestScreen(navController: NavController, name: String) {
                 .width(42.dp)
                 .background(color = Color.Green)
         ) {
-            Text("0")
+            Text("0", color = Color.Blue)
         }
         Spacer(modifier = Modifier.height(6.dp))
         Text(
@@ -177,7 +181,7 @@ fun SecondTestScreen(navController: NavController, name: String) {
                 .fillMaxWidth()
                 .background(color = Color.Green)
         ) {
-            Text("Reset Number")
+            Text("Reset Number", color = Color.Blue)
         }
         Spacer(modifier = Modifier.height(12.dp))
         Box(

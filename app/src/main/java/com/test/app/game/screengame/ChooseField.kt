@@ -31,7 +31,7 @@ fun ChooseFieldScreen(navController: NavController) {
     val interactionSource = remember { MutableInteractionSource() }
 
     BackHandler {
-        navController.navigate("menu")
+        navController.navigate("key")
     }
 
     Column(
@@ -112,7 +112,8 @@ fun ChooseFieldScreen(navController: NavController) {
                 Image(
                     painter = painterResource(R.drawable.image_geography),
                     contentDescription = null,
-                    modifier = Modifier.size(width = 68.dp, height = 56.dp),
+                    modifier = Modifier
+                        .size(width = 68.dp, height = 56.dp),
                     contentScale = ContentScale.Crop
                 )
                 DisplayIcon()
@@ -236,11 +237,41 @@ fun ChooseFieldScreen(navController: NavController) {
                 )
             }
         }
-        Row(
+        Spacer(modifier = Modifier.height(6.dp))
+        Box(
             modifier = Modifier
-                .padding(all = 8.dp),
-            verticalAlignment = Alignment.Bottom
+                .background(color = Color.Green, shape = RoundedCornerShape(100))
+                .padding(8.dp)
+                .fillMaxWidth()
+                .height(56.dp)
+                .clickable(interactionSource = interactionSource, indication = null) {
+                    navController.navigate("game/${Category.WORLD}")
+                },
+            contentAlignment = Alignment.Center
         ) {
+            Row {
+                Image(
+                    painter = painterResource(R.drawable.image_world),
+                    contentDescription = null,
+                    modifier = Modifier.size(width = 68.dp, height = 56.dp),
+                    contentScale = ContentScale.Crop
+                )
+                DisplayIcon()
+                Text(
+                    text = "World",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 22.sp,
+                    color = Color.Blue
+                )
+            }
+        }
+    }
+    Column(
+        verticalArrangement = Arrangement.Bottom,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.fillMaxSize()
+    ) {
+        Row {
             Image(
                 painter = painterResource(id = R.drawable.ic_android_black_24dp),
                 contentDescription = "Row Image",

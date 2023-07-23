@@ -22,7 +22,7 @@ import com.test.app.game.R
 fun OptionsScreen(navController: NavController) {
 
     BackHandler {
-        navController.navigate("menu")
+        navController.popBackStack()
     }
     var isChecked by remember { mutableStateOf(false) }
 
@@ -72,14 +72,10 @@ fun OptionsScreen(navController: NavController) {
             }
             Column(
                 verticalArrangement = Arrangement.Bottom,
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.fillMaxSize()
             ) {
-                Row(
-                    modifier = Modifier
-                        .padding(all = 8.dp),
-                    verticalAlignment = Alignment.Bottom,
-                    horizontalArrangement = Arrangement.Center
-                ) {
+                Row {
                     Image(
                         painter = painterResource(id = R.drawable.ic_android_black_24dp),
                         contentDescription = "Row Image",

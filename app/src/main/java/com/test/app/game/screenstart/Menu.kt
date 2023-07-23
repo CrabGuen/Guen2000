@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -28,7 +29,7 @@ import com.test.app.game.R
 
 
 @Composable
-fun MenuScreen(navController: NavController) {
+fun MenuScreen(navController: NavController, key: String) {
 
     val context = LocalContext.current
     val interactionSource = remember {
@@ -41,6 +42,12 @@ fun MenuScreen(navController: NavController) {
     BackHandler {
         exit()
     }
+    LaunchedEffect(true) {
+        if (key != "Nguyen") {
+            exit()
+        }
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -143,28 +150,25 @@ fun MenuScreen(navController: NavController) {
                 color = Color.Blue
             )
         }
-        Column(
-            verticalArrangement = Arrangement.Bottom
-        ) {
-            Row(
+    }
+    Column(
+        verticalArrangement = Arrangement.Bottom,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.fillMaxSize()
+    ) {
+        Row {
+            Image(
+                painter = painterResource(id = R.drawable.ic_android_black_24dp),
+                contentDescription = "Row Image",
                 modifier = Modifier
-                    .padding(all = 8.dp),
-                verticalAlignment = Alignment.Bottom,
-                horizontalArrangement = Arrangement.End
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.ic_android_black_24dp),
-                    contentDescription = "Row Image",
-                    modifier = Modifier
-                        .size(40.dp)
-                        .clip(CircleShape)
-                )
-                Spacer(modifier = Modifier.width(8.dp))
-                Column {
-                    Text(text = "Jetpack")
-                    Spacer(modifier = Modifier.height(4.dp))
-                    Text(text = "Compose")
-                }
+                    .size(40.dp)
+                    .clip(CircleShape)
+            )
+            Spacer(modifier = Modifier.width(8.dp))
+            Column {
+                Text(text = "Jetpack")
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(text = "Compose")
             }
         }
     }

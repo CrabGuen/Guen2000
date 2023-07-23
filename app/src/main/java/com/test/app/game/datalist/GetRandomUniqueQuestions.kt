@@ -10,6 +10,7 @@ fun getRandomUniqueQuestions(category: String): List<Question>? {
         Category.PHYSICS -> questionListP
         Category.LITERATURE -> questionListL
         Category.AMERICAN -> questionListA
+        Category.WORLD -> questionListW
         else -> questionListM
     }
     val randomQuestion = questionList.subList(0, 10).shuffled()

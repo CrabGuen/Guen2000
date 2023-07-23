@@ -8,8 +8,10 @@ object Category {
     const val LITERATURE = "LITERATURE"
     const val PHYSICS = "PHYSICS"
     const val AMERICAN = "AMERICAN"
+    const val WORLD = "WORLD"
 }
 const val CATEGORY = "CATEGORY"
 const val SCORE = "SCORE"
 const val NAME = "NAME"
+const val KEY = "KEY"
 

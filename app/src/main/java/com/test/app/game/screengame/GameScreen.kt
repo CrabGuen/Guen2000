@@ -31,52 +31,64 @@ fun GameScreen(navController: NavHostController, category: String) {
         navController.navigate("field")
     }
 
-    val randomQuestions = remember {
-        mutableStateOf(getRandomUniqueQuestions(category))
-    }
+    val randomQuestions = remember { mutableStateOf(getRandomUniqueQuestions(category)) }
 
-    val index = remember {
-        mutableStateOf(1)
-    }
+    val index = remember { mutableStateOf(1) }
 
     val ansIndex = remember { mutableStateOf(0) }
 
-    val currentQuestion = remember {
-        mutableStateOf(randomQuestions.value?.get(index.value - 1))
-    }
+    val currentQuestion = remember { mutableStateOf(randomQuestions.value?.get(index.value - 1)) }
 
-    val score = remember {
-        mutableStateOf(0)
-    }
+    val score = remember { mutableStateOf(0) }
 
-    val interactionSource = remember {
-        MutableInteractionSource()
-    }
+    val interactionSource = remember { MutableInteractionSource() }
 
     val isAnswered = remember { mutableStateOf(false) }
 
     var boxColor by remember { mutableStateOf(Color.Blue) }
 
-    fun checkAnswer(answerIndex: Int) {
-        index.value++
+    val isChange = remember { mutableStateOf(false) }
 
+    val isTime = remember { mutableStateOf(1300) }
+
+    fun checkAnswer(answerIndex: Int) {
         if (answerIndex == currentQuestion.value?.answer) {
             // Update the score
+            boxColor = Color.Green
             score.value++
+        } else {
+            boxColor = Color.Red
         }
-        // Get the next question
-        currentQuestion.value = randomQuestions.value?.get(index.value - 1)
+        isTime.value = 0
+        isChange.value = true
     }
 
     LaunchedEffect(isAnswered.value) {
         if (isAnswered.value) {
-            boxColor = Color.Black
-            delay(1600)
             checkAnswer(ansIndex.value)
-            isAnswered.value = false
         }
     }
-
+    LaunchedEffect(isChange.value) {
+        if (isChange.value) {
+            delay(1600)
+            isAnswered.value = false
+            boxColor = Color.Blue
+            index.value++
+            currentQuestion.value = randomQuestions.value?.get(index.value - 1)
+            isTime.value = 1300
+            isChange.value = false
+        }
+    }
+    if (index.value == 11) {
+        boxColor = Color.White
+    }
+    if (isTime.value > 0) {
+        isTime.value -= 1
+    }
+    if (isTime.value == 0) {
+        isChange.value = true
+    }
+    // Main layout
     Column(
         modifier = Modifier
             .padding(16.dp)
@@ -84,27 +96,32 @@ fun GameScreen(navController: NavHostController, category: String) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // Title
         Text(
             text = "Quiz Game",
-            fontSize = 40.sp,
+            fontSize = 33.sp,
             fontWeight = FontWeight.Bold,
             color = Color.Blue
         )
-        Spacer(
-            modifier = Modifier.height(46.dp)
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(
+            text = "<${isTime.value}>",
+            fontWeight = FontWeight.Bold,
+            fontSize = 22.sp,
+            color = Color.Cyan
         )
+        Spacer(modifier = Modifier.height(8.dp))
         // Question
         val question = "Question ${index.value}: ${currentQuestion.value?.question}"
         Text(
             text = question,
             fontSize = 24.sp,
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.Bold,
+            color = if (index.value == 11) Color.White else Color.Gray
         )
         Spacer(
             modifier = Modifier.height(16.dp)
         )
-        // Choices
+        // Options
         currentQuestion.value?.options?.forEachIndexed { i, option ->
             Box(
                 modifier = Modifier
@@ -218,6 +235,7 @@ fun GameScreen(navController: NavHostController, category: String) {
                             Category.CHEMISTRY -> navController.navigate("showC/${score.value}")
                             Category.LITERATURE -> navController.navigate("showL/${score.value}")
                             Category.AMERICAN -> navController.navigate("showA/${score.value}")
+                            Category.WORLD -> navController.navigate("showW/${score.value}")
                         }
                     },
                 contentAlignment = Alignment.Center
@@ -237,32 +255,26 @@ fun GameScreen(navController: NavHostController, category: String) {
                 color = Color.White
             )
         }
-        boxColor = when (index.value) {
-            5 -> Color.Red
-            8 -> Color.Green
-            11 -> Color.White
-            else -> Color.Blue
-        }
-        Column(verticalArrangement = Arrangement.Bottom) {
-            Row(
+    }
+
+    Column(
+        verticalArrangement = Arrangement.Bottom,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.fillMaxSize()
+    ) {
+        Row {
+            Image(
+                painter = painterResource(id = R.drawable.ic_android_black_24dp),
+                contentDescription = "Row Image",
                 modifier = Modifier
-                    .padding(all = 8.dp),
-                verticalAlignment = Alignment.Bottom,
-                horizontalArrangement = Arrangement.End
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.ic_android_black_24dp),
-                    contentDescription = "Row Image",
-                    modifier = Modifier
-                        .size(40.dp)
-                        .clip(CircleShape)
-                )
-                Spacer(modifier = Modifier.width(8.dp))
-                Column {
-                    Text(text = "Jetpack")
-                    Spacer(modifier = Modifier.height(4.dp))
-                    Text(text = "Compose")
-                }
+                    .size(40.dp)
+                    .clip(CircleShape)
+            )
+            Spacer(modifier = Modifier.width(8.dp))
+            Column {
+                Text(text = "Jetpack")
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(text = "Compose")
             }
         }
     }

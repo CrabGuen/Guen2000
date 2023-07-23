@@ -23,11 +23,12 @@ import kotlinx.coroutines.delay
 @Composable
 fun SplashScreen(navController: NavController) {
 
+    // Delay 3s xong chuyển sang "key"
     LaunchedEffect(true) {
         delay(3000)
-        navController.navigate("menu")
+        navController.navigate("key")
     }
-
+    // Layout cho toàn screen
     Column(
         modifier = Modifier
             .background(color = Color.LightGray)
@@ -49,11 +50,13 @@ fun SplashScreen(navController: NavController) {
             fontWeight = FontWeight.Bold,
             color = Color.Blue
         )
-        Row(
-            modifier = Modifier
-                .padding(all = 8.dp),
-            verticalAlignment = Alignment.Bottom
-        ) {
+    }
+    Column(
+        verticalArrangement = Arrangement.Bottom,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.fillMaxSize()
+    ) {
+        Row {
             Image(
                 painter = painterResource(id = R.drawable.ic_android_black_24dp),
                 contentDescription = "Row Image",

@@ -22,7 +22,7 @@ import com.test.app.game.datalist.questionListTest
 @Composable
 fun BackGround(navController: NavController) {
     BackHandler {
-        navController.navigate("about")
+        navController.popBackStack()
     }
     val stringList = ("tomato").toList()
 //    val numberList = (1..100).toList()
@@ -34,12 +34,6 @@ fun BackGround(navController: NavController) {
                 Text("Item $string")
             }
         }
-//        Spacer(modifier = Modifier.height(6.dp))
-//        LazyColumn {
-//            items(numberList) { number ->
-//                Text("Number $number")
-//            }
-//        }
         Spacer(modifier = Modifier.height(6.dp))
         LazyColumn {
             items(questionListTest) { ques ->

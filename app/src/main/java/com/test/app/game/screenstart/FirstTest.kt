@@ -3,8 +3,11 @@ package com.test.app.game.screenstart
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
@@ -30,8 +33,9 @@ import com.test.app.game.R
 fun FirstTestScreen(navController: NavController) {
 
     BackHandler {
-        navController.navigate("menu")
+        navController.popBackStack()
     }
+    val interactionSource = remember { MutableInteractionSource() }
 
     val name = remember { mutableStateOf("") }
     var textColor by remember { mutableStateOf(Color.Red) }
@@ -41,7 +45,6 @@ fun FirstTestScreen(navController: NavController) {
     val firstNumber = firstNumberInput.value.toDoubleOrNull() ?: 0.0
     val secondNumberInput = remember { mutableStateOf("0") }
     val secondNumber = secondNumberInput.value.toDoubleOrNull() ?: 0.0
-//    val total = numberTotal(firstNumber, secondNumber)
     val operator = remember { mutableStateOf("") }
 
     Column(
@@ -51,7 +54,7 @@ fun FirstTestScreen(navController: NavController) {
         Image(
             painter = painterResource(id = R.drawable.androidparty),
             modifier = Modifier
-                .requiredHeight(180.dp)
+                .requiredHeight(80.dp)
                 .fillMaxWidth(),
             contentDescription = "My Image",
             contentScale = ContentScale.Crop
@@ -77,7 +80,7 @@ fun FirstTestScreen(navController: NavController) {
         } else {
             Color.Red
         }
-        Spacer(modifier = Modifier.height(12.dp))
+        Spacer(modifier = Modifier.height(6.dp))
         Button(
             onClick = {
                 navController.navigate("second/${name.value}")
@@ -153,6 +156,44 @@ fun FirstTestScreen(navController: NavController) {
             color = textColor,
             fontSize = 22.sp
         )
+        Spacer(modifier = Modifier.height(6.dp))
+        Box(
+            modifier = Modifier
+                .clickable(interactionSource = interactionSource, indication = null) {
+                    navController.navigate("back")
+                }
+                .padding(8.dp)
+                .height(56.dp)
+                .fillMaxWidth()
+                .background(color = Color.Green, shape = RoundedCornerShape(100)),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = "BackGround",
+                fontWeight = FontWeight.Bold,
+                fontSize = 22.sp,
+                color = Color.Blue
+            )
+        }
+        Spacer(modifier = Modifier.height(6.dp))
+        Box(
+            modifier = Modifier
+                .clickable(interactionSource = interactionSource, indication = null) {
+                    navController.navigate("roll/${name.value}")
+                }
+                .padding(8.dp)
+                .height(56.dp)
+                .fillMaxWidth()
+                .background(color = Color.Green, shape = RoundedCornerShape(100)),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = "DiceRoller",
+                fontWeight = FontWeight.Bold,
+                fontSize = 22.sp,
+                color = Color.Blue
+            )
+        }
         Row(
             modifier = Modifier
                 .padding(all = 8.dp),
@@ -174,14 +215,3 @@ fun FirstTestScreen(navController: NavController) {
         }
     }
 }
-//private fun numberTotal(
-//    firstNumber: Double,
-//    secondNumber: Double,
-//): Double {
-//    val result = when (operator.value) {//        "+" -> firstNumber + secondNumber
-//        "-" -> firstNumber - secondNumber
-//        "*" -> firstNumber * secondNumber
-//        "/" -> firstNumber / secondNumber
-//        else -> 0.0
-//    }
-//}
